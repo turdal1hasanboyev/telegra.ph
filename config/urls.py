@@ -24,7 +24,7 @@ from django.views.static import serve
 
 from django.conf.urls import handler404
 
-from .errors import PageNotFoundView
+from .errors import page_not_found_as_view
 
 
 urlpatterns = [
@@ -40,4 +40,4 @@ if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
-handler404 = PageNotFoundView.as_view()
+handler404 = page_not_found_as_view

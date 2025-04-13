@@ -11,8 +11,9 @@ class Post(models.Model):
     """
     Model for blog posts.
     """
+    
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, editable=False)
     author = models.CharField(max_length=100)
     content = models.TextField()
     edit_token = models.UUIDField(default=uuid4, editable=False, unique=True)
@@ -24,11 +25,10 @@ class Post(models.Model):
         verbose_name_plural = 'Posts'
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(self.title)
-            date_str = datetime.today().strftime('%d-%m-%Y-%H-%M-%S')
-            unique_id = uuid4().hex[:8]
-            self.slug = f"{base_slug}-{date_str}-{unique_id}"
+        base_slug = slugify(self.title)
+        date_str = datetime.today().strftime('%d-%m-%Y-%H-%M-%S')
+        unique_id = uuid4().hex[:8]
+        self.slug = f"{base_slug}-{date_str}-{unique_id}"
         super().save(*args, **kwargs)
 
     def __str__(self):

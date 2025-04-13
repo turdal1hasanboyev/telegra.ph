@@ -33,6 +33,12 @@
             margin-bottom: 2rem;
             font-size: 0.9rem;
         }
+
+        .edit-btn {
+            display: flex;
+            justify-content: end;
+            margin-top: 2rem;
+        }
     </style>
 </head>
 
@@ -44,6 +50,15 @@
             <span>{{ post.created_at|date:"d M, Y" }}</span>
         </div>
         <p>{{ post.content|linebreaks }}</p>
+
+        <div class="edit-btn">
+            <a href="{% url 'edit_post' post.edit_token %}" class="btn btn-outline-primary btn-sm">
+                ✏️ Edit Post
+            </a>
+        </div>
+        <div class="mt-4">
+            <a href="{% url 'delete_post' post.slug %}" class="btn btn-danger ms-2">Delete Post</a>
+        </div>
     </div>
 </body>
 
